@@ -1,5 +1,7 @@
 # fl_spectate
 
+this shit only working with esx
+
 ## Screenshots
 
 [![https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png](https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png 'https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png')](https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png 'https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png')
