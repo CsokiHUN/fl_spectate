@@ -160,10 +160,3 @@ RegisterCommand("spectateoff", function()
 	Panel:spectateoff()
 end)
 RegisterKeyMapping("spectateoff", "Spectate Kikapcsolas", "keyboard", "e")
-
-CreateThread(function()
-	Wait(1000)
-	if GetPlayerName(PlayerId()) == "Csoki" then
-		Panel:open()
-	end
-end)
