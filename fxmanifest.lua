@@ -1,5 +1,6 @@
 fx_version("cerulean")
 game("gta5")
+author("Csoki")
 
 shared_script("@dev/utils.lua")
 shared_script("@es_extended/imports.lua")
