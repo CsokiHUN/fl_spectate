@@ -153,10 +153,12 @@ CreateThread(function()
 end)
 
 RegisterCommand("spectateoff", function()
-	TriggerEvent("chat:addMessage", {
-		args = { "Server", "Spectate turned off" },
-		color = { 0, 255, 0 },
-	})
-	Panel:spectateoff()
+	if Panel.selectedPlayer then
+		TriggerEvent("chat:addMessage", {
+			args = { "Server", "Spectate turned off" },
+			color = { 0, 255, 0 },
+		})
+		Panel:spectateoff()
+	end
 end)
 RegisterKeyMapping("spectateoff", "Spectate Kikapcsolas", "keyboard", "e")
