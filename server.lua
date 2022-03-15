@@ -28,8 +28,10 @@ ESX.RegisterServerCallback("requestServerPlayers", function(source, cb)
 end)
 
 ESX.RegisterServerCallback("requestPlayerCoords", function(source, cb, serverId)
+	local xSource = ESX.GetPlayerFromId(source)
+
 	local targetPed = GetPlayerPed(serverId)
-	if targetPed <= 0 then
+	if targetPed <= 0 or not ALLOWED_GROUPS[xSource.getGroup()] then
 		return cb(false)
 	end
 

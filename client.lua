@@ -70,13 +70,22 @@ Panel = {
 		self.lastCoords = GetEntityCoords(localPed)
 
 		local serverId = tonumber(data.player.serverId)
+		if serverId == GetPlayerServerId(PlayerId()) then
+			return TriggerEvent("chat:addMessage", {
+				args = { "Server", "You can't spectate yourself." },
+				color = { 0, 255, 0 },
+			})
+		end
+
 		self.selectedPlayer = serverId
 
 		ESX.TriggerServerCallback("requestPlayerCoords", function(coords)
 			if not coords then
+				self.lastCoords = false
 				self.selectedPlayer = false
 				return
 			end
+			CreateThread(updatePlayerInfo)
 
 			RequestCollisionAtCoord(coords)
 			SetEntityVisible(localPed, false)
@@ -113,6 +122,10 @@ Panel = {
 			SetEntityCoords(localPed, self.lastCoords)
 			SetEntityVisible(localPed, true)
 		end
+
+		SendNUIMessage({
+			playerInfo = false,
+		})
 	end,
 }
 Panel.__index = Panel
@@ -126,31 +139,27 @@ RegisterNetEvent("openSpectateMenu", function(players)
 	Panel:open(players)
 end)
 
-CreateThread(function()
-	while true do
-		if Panel.selectedPlayer then
-			local targetPed = GetPlayerPed(GetPlayerFromServerId(Panel.selectedPlayer))
+function updatePlayerInfo()
+	while Panel.selectedPlayer do
+		local playerId = GetPlayerFromServerId(Panel.selectedPlayer)
+		local targetPed = GetPlayerPed(playerId)
 
-			SendNUIMessage({
-				playerInfo = {
-					"GodMode: "
-						.. (GetPlayerInvincible(Panel.selectedPlayer) and RED .. "Enabled" or GREEN .. "Disabled")
-						.. "</span>",
-					"AntiRagdoll: "
-						.. (not CanPedRagdoll(targetPed) and RED .. "Enabled" or GREEN .. "Disabled")
-						.. "</span>",
-					"Health: " .. GetEntityHealth(targetPed) .. "/" .. GetEntityMaxHealth(targetPed),
-					"Armor: " .. GetPedArmour(targetPed) .. "/" .. GetPlayerMaxArmour(Panel.selectedPlayer),
-				},
-			})
-		else
-			SendNUIMessage({
-				playerInfo = false,
-			})
-		end
+		SendNUIMessage({
+			playerInfo = {
+				"GodMode: "
+					.. (GetPlayerInvincible(Panel.selectedPlayer) and RED .. "Enabled" or GREEN .. "Disabled")
+					.. "</span>",
+				"AntiRagdoll: "
+					.. (not CanPedRagdoll(targetPed) and RED .. "Enabled" or GREEN .. "Disabled")
+					.. "</span>",
+				"Health: " .. GetEntityHealth(targetPed) .. "/" .. GetEntityMaxHealth(targetPed),
+				"Armor: " .. GetPedArmour(targetPed) .. "/" .. GetPlayerMaxArmour(playerId),
+			},
+		})
+
 		Wait(1000)
 	end
-end)
+end
 
 RegisterCommand("spectateoff", function()
 	if Panel.selectedPlayer then
