@@ -171,3 +171,8 @@ RegisterCommand("spectateoff", function()
 	end
 end)
 RegisterKeyMapping("spectateoff", "Spectate Kikapcsolas", "keyboard", "e")
+
+exports('spectatePlayer', function(serverId)
+	print("spectate", serverId)
+	Panel:spectate({player = { serverId = serverId }})
+end)
