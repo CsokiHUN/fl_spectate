@@ -1,9 +1,20 @@
 # fl_spectate
 
-this shit only working with esx
-
 ## Screenshots
 
 [![https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png](https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png 'https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png')](https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png 'https://raw.githubusercontent.com/CsokiHUN/fl_spectate/main/Screenshot.png')
 
-Csatlakozz te is a FiveM Land discordjához, hogy további finomságokat találj! Discord: https://discord.gg/Zdaqj5EM5Z
+## Dependencies
+
+- [esx-legacy](https://github.com/esx-framework/esx-legacy)
+
+## Exports
+
+### Client
+
+- spectatePlayer
+
+```lua
+--serverId: number
+exports.fl_spectate:spectatePlayer(serverId)
+```
