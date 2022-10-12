@@ -102,12 +102,17 @@ Panel = {
 	end,
 
 	kick = function(self, data, cb)
+		if (not data.player or not data.player.serverId) or not data.reason then
+			return cb('ok')
+		end
+
 		ESX.TriggerServerCallback("kickPlayerSpectate", function(players)
 			if not players then
 				return self:close()
 			end
 			self:update(players)
-		end, tonumber(data.player.serverId))
+			cb('ok')
+		end, tonumber(data.player.serverId), data.reason)
 	end,
 
 	spectateoff = function(self)

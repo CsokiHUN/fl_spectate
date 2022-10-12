@@ -43,17 +43,18 @@ ESX.RegisterServerCallback("requestPlayerCoords", function(source, cb, serverId)
 	cb(GetEntityCoords(targetPed))
 end)
 
-ESX.RegisterServerCallback("kickPlayerSpectate", function(source, cb, target)
+ESX.RegisterServerCallback("kickPlayerSpectate", function(source, cb, target, reason)
 	local xSource = ESX.GetPlayerFromId(source)
 	if not xSource or not ALLOWED_GROUPS[xSource.getGroup()] then
 		return
 	end
 
-	DropPlayer(target, "Spectate menu ~ Admin: " .. GetPlayerName(source))
+	DropPlayer(target, ("Kicked from the server.\nReason: %s\nAdmin: %s"):format(GetPlayerName(source), reason))
+
 	cb(getPlayerList())
 end)
 
-RegisterCommand("spectate", function(player, args, cmd)
+RegisterCommand("spectate", function(player)
 	local xPlayer = ESX.GetPlayerFromId(player)
 	if not xPlayer or not ALLOWED_GROUPS[xPlayer.getGroup()] then
 		return

@@ -3,13 +3,18 @@
 }
 
 body {
-  overflow: hidden;
+  margin: none;
+  padding: none;
   background-color: transparent;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+body.swal2-height-auto {
+  height: 100vh !important;
 }
 
 .main {
