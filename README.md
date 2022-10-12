@@ -18,3 +18,10 @@
 --serverId: number
 exports.fl_spectate:spectatePlayer(serverId)
 ```
+
+- isActive
+
+```lua
+--return boolean
+exports.fl_spectate:isActive()
+```
